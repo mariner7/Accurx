@@ -1,0 +1,13 @@
+# Handle line endings automatically for text files
+* text=auto
+
+# Explicitly set LF for shell scripts (crucial for Mac/Linux)
+*.sh text eol=lf
+
+# Explicitly set CRLF for batch files (crucial for Windows)
+*.bat text eol=crlf
+
+# Mark binary files to prevent Git from touching them
+*.png binary
+*.jpg binary
+*.jpeg binary
