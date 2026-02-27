@@ -26,10 +26,10 @@ Editar `.env`:
 
 ```env
 DB_HOST=localhost
-DB_PORT=5432
-DB_USER=postgres
-DB_PASSWORD=postgres
-DB_NAME=accurx_db
+DB_PORT=Número de puerto
+DB_USER=usuario
+DB_PASSWORD=contraseña del usuario
+DB_NAME=nombre de la base datos
 
 APP_PORT=3000
 NODE_ENV=development
