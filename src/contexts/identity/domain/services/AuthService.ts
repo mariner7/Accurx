@@ -18,7 +18,7 @@ export interface User {
 }
 
 export interface TokenPayload {
-  userId: string;
+  id: string;
   email: string;
   role: UserRole;
   patientId?: string;
@@ -45,7 +45,7 @@ export class AuthService {
 
   generateToken(user: Omit<User, 'passwordHash'>): string {
     const payload: TokenPayload = {
-      userId: user.id,
+      id: user.id,
       email: user.email,
       role: user.role,
       patientId: user.patientId,

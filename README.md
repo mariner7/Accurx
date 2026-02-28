@@ -16,6 +16,10 @@ npm run db:up
 
 # 4. Iniciar servidor
 npm run dev
+
+# 5. Iniciar Vite
+cd frontend
+npm run dev
 ```
 
 La API estará disponible en `http://localhost:3000`
@@ -95,7 +99,7 @@ curl -X POST http://localhost:3000/auth/login \
 | `npm run lint` | Linter |
 
 ### Vite
-
+cd frontend
 | Comando | Descripción |
 |---------|-------------|
 | `npm run dev` | Desarrollo |

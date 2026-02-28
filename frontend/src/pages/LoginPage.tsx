@@ -1,25 +1,25 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useDialog } from '../context/DialogContext';
 import Logo from '../assets/logo.png';
 import { es } from '../i18n/es';
 
 export function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const { login } = useAuth();
+  const { showDialog } = useDialog();
   const navigate = useNavigate();
   const t = es.auth;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     try {
       await login(email, password);
       navigate('/');
     } catch {
-      setError(t.loginError);
+      showDialog('Error', t.loginError);
     }
   };
 
@@ -47,7 +47,6 @@ export function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {error && <p className="error-message">{error}</p>}
           <button type="submit" className="btn btn-primary" style={{ width: '100%' }}>
             {t.signIn}
           </button>

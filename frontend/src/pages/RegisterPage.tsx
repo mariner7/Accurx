@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useDialog } from '../context/DialogContext';
 import { apiService } from '../api/service';
 import Logo from '../assets/logo.png';
 
@@ -26,8 +27,8 @@ export function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const { showDialog } = useDialog();
   
   const [patientData, setPatientData] = useState({
     name: '',
@@ -47,15 +48,14 @@ export function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     
     if (!passwordValidation.valid) {
-      setError('La contraseña no cumple los requisitos');
+      showDialog('Error', 'La contraseña no cumple los requisitos');
       return;
     }
     
     if (!passwordsMatch) {
-      setError('Las contraseñas no coinciden');
+      showDialog('Error', 'Las contraseñas no coinciden');
       return;
     }
     
@@ -80,7 +80,7 @@ export function RegisterPage() {
     } catch (err: unknown) {
       console.error('Registration error:', err);
       const axiosError = err as { response?: { data?: { error?: { message?: string } } } };
-      setError(axiosError.response?.data?.error?.message || 'Error al registrar');
+      showDialog('Error', axiosError.response?.data?.error?.message || 'Error al registrar');
     } finally {
       setLoading(false);
     }
@@ -187,7 +187,6 @@ export function RegisterPage() {
             onChange={(e) => setPatientData({ ...patientData, allergies: e.target.value })}
           />
 
-          {error && <p className="error-message">{error}</p>}
           <button type="submit" className="btn btn-primary" style={{ width: '100%' }} disabled={loading || !canSubmit}>
             {loading ? 'Registrando...' : 'Registrarse'}
           </button>

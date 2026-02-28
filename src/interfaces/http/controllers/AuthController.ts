@@ -4,10 +4,13 @@ import { AuthService, UserRole } from '../../../contexts/identity/domain/service
 import { PostgresUserRepository } from '../../../contexts/identity/infrastructure/persistence/PostgresUserRepository.js';
 import { PostgresPatientRepository } from '../../../infrastructure/repositories/PostgresPatientRepository.js';
 import { Patient, Gender } from '../../../contexts/patient/domain/entities/Patient.js';
+import { Doctor } from '../../../contexts/doctor/domain/entities/Doctor.js';
+import { PostgresDoctorRepository } from '../../../infrastructure/repositories/PostgresDoctorRepository.js';
 
 const authService = new AuthService();
 const userRepository = new PostgresUserRepository();
 const patientRepository = new PostgresPatientRepository();
+const doctorRepository = new PostgresDoctorRepository();
 
 const registerPatientSchema = z.object({
   email: z.string().email(),
@@ -22,7 +25,11 @@ const registerPatientSchema = z.object({
 
 const registerDoctorSchema = z.object({
   email: z.string().email(),
-  password: z.string().min(6)
+  password: z.string().min(6),
+  name: z.string().min(1),
+  specialty: z.string().min(1),
+  licenseNumber: z.string().min(1),
+  phone: z.string().min(1)
 });
 
 export class AuthController {
@@ -83,14 +90,24 @@ export class AuthController {
           return;
         }
 
-        const { v4: uuidv4 } = await import('uuid');
+        const doctor = new Doctor({
+          name: validated.name,
+          specialty: validated.specialty,
+          licenseNumber: validated.licenseNumber,
+          phone: validated.phone,
+          email: validated.email
+        });
+
+        await doctorRepository.save(doctor);
+
         const passwordHash = await authService.hashPassword(validated.password);
 
         const user = {
-          id: uuidv4(),
+          id: doctor.id.value,
           email: validated.email,
           passwordHash,
-          role: UserRole.DOCTOR
+          role: UserRole.DOCTOR,
+          doctorId: doctor.id.value
         };
 
         await userRepository.save(user);

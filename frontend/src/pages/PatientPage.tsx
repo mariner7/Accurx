@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { apiService } from '../api/service';
 import { useAuth } from '../context/AuthContext';
+import { useDialog } from '../context/DialogContext';
 import { Layout } from '../components/Layout';
 import type { Appointment, Doctor } from '../types';
 
 export function PatientPage() {
   const { user } = useAuth();
+  const { showDialog } = useDialog();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [doctors, setDoctors] = useState<Doctor[]>([]);
   const [loading, setLoading] = useState(true);
@@ -30,6 +32,7 @@ export function PatientPage() {
       setDoctors(doctorsData);
     } catch (error) {
       console.error('Error loading data:', error);
+      showDialog('Error', 'No se pudieron cargar los datos. Por favor, intente de nuevo más tarde.');
     } finally {
       setLoading(false);
     }
@@ -82,11 +85,12 @@ export function PatientPage() {
       const err = error as { response?: { data?: { error?: { message?: string } } } };
       console.error('Error creating appointment:', error);
       const errorMessage = err.response?.data?.error?.message || 'Error al crear la cita';
-      alert(errorMessage);
+      showDialog('Error', errorMessage);
     }
   };
 
   const handleCancel = async (id: string) => {
+    // TODO: Implement a custom confirm dialog
     if (!confirm('¿Estás seguro de que deseas cancelar esta cita?')) return;
     
     try {
@@ -95,7 +99,7 @@ export function PatientPage() {
     } catch (error: unknown) {
       const err = error as { response?: { data?: { error?: { message?: string } } } };
       console.error('Error cancelling:', error);
-      alert(err.response?.data?.error?.message || 'Error al cancelar la cita');
+      showDialog('Error', err.response?.data?.error?.message || 'Error al cancelar la cita');
     }
   };
 

@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { apiService } from '../api/service';
 import { useAuth } from '../context/AuthContext';
+import { useDialog } from '../context/DialogContext';
 import { Layout } from '../components/Layout';
 import type { Appointment, Patient } from '../types';
 
 export function DoctorPage() {
   const { user } = useAuth();
+  const { showDialog } = useDialog();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [patients, setPatients] = useState<Patient[]>([]);
   const [loading, setLoading] = useState(true);
@@ -33,6 +35,7 @@ export function DoctorPage() {
       setPatients(patientsData);
     } catch (error) {
       console.error('Error loading data:', error);
+      showDialog('Error', 'No se pudieron cargar los datos. Por favor, intente de nuevo más tarde.');
     } finally {
       setLoading(false);
     }
@@ -52,11 +55,12 @@ export function DoctorPage() {
     } catch (error: unknown) {
       const err = error as { response?: { data?: { error?: { message?: string } } } };
       console.error('Error confirming:', error);
-      alert(err.response?.data?.error?.message || 'Error al confirmar la cita');
+      showDialog('Error', err.response?.data?.error?.message || 'Error al confirmar la cita');
     }
   };
 
   const handleCancel = async (id: string) => {
+    // TODO: Implement a custom confirm dialog
     if (!confirm('¿Estás seguro de que deseas cancelar esta cita?')) return;
     
     try {
@@ -65,7 +69,7 @@ export function DoctorPage() {
     } catch (error: unknown) {
       const err = error as { response?: { data?: { error?: { message?: string } } } };
       console.error('Error cancelling:', error);
-      alert(err.response?.data?.error?.message || 'Error al cancelar la cita');
+      showDialog('Error', err.response?.data?.error?.message || 'Error al cancelar la cita');
     }
   };
 
@@ -82,7 +86,7 @@ export function DoctorPage() {
       loadData();
     } catch (error) {
       console.error('Error adding clinical notes:', error);
-      alert('Error al agregar notas clínicas');
+      showDialog('Error', 'Error al agregar notas clínicas');
     }
   };
 
@@ -277,6 +281,7 @@ function CreateAppointmentForm({ patients, doctorId, onSuccess }: {
   doctorId: string;
   onSuccess: () => void;
 }) {
+  const { showDialog } = useDialog();
   const [patientId, setPatientId] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
@@ -306,7 +311,7 @@ function CreateAppointmentForm({ patients, doctorId, onSuccess }: {
       const err = error as { response?: { data?: { error?: { message?: string } } } };
       console.error('Error creating appointment:', error);
       const errorMessage = err.response?.data?.error?.message || 'Error al crear la cita';
-      alert(errorMessage);
+      showDialog('Error', errorMessage);
     }
   };
 

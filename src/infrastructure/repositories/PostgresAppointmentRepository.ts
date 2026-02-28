@@ -104,7 +104,7 @@ export class PostgresAppointmentRepository {
       id: row.id,
       patientId: new PatientId(row.patient_id),
       doctorId: new DoctorId(row.doctor_id),
-      timeSlot: new TimeSlot(new Date(row.start_time)),
+      timeSlot: new TimeSlot(new Date(row.start_time), true),
       notes: row.notes,
       clinicalNotes,
       status

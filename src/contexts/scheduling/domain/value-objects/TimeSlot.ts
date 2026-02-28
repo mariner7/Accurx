@@ -8,8 +8,10 @@ export class TimeSlot {
   public readonly startTime: Date;
   public readonly endTime: Date;
 
-  constructor(startTime: Date) {
-    this.validateStartTime(startTime);
+  constructor(startTime: Date, fromPersistence = false) {
+    if (!fromPersistence) {
+      this.validateStartTime(startTime);
+    }
     this.startTime = startTime;
     this.endTime = this.calculateEndTime(startTime);
   }
@@ -19,11 +21,10 @@ export class TimeSlot {
     if (startTime <= now) {
       throw new DomainError('Appointment cannot be scheduled in the past');
     }
+  }
 
-    const minutes = startTime.getMinutes();
-    if (minutes % TOTAL_SLOT_MINUTES !== 0) {
-      throw new DomainError(`Appointment must start at intervals of ${TOTAL_SLOT_MINUTES} minutes`);
-    }
+  public static get slotIntervalMinutes(): number {
+    return TOTAL_SLOT_MINUTES;
   }
 
   private calculateEndTime(startTime: Date): Date {

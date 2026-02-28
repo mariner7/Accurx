@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { apiService } from '../api/service';
+import { useDialog } from '../context/DialogContext';
 import { Layout } from '../components/Layout';
 import type { Doctor } from '../types';
 
@@ -37,8 +38,7 @@ export function AdminPage() {
     password: ''
   });
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState('');
-  const [error, setError] = useState('');
+  const { showDialog } = useDialog();
 
   useEffect(() => {
     loadDoctors();
@@ -50,6 +50,7 @@ export function AdminPage() {
       setDoctors(data);
     } catch (err) {
       console.error('Error loading doctors:', err);
+      showDialog('Error', 'No se pudieron cargar los médicos.');
     } finally {
       setLoadingDoctors(false);
     }
@@ -61,24 +62,22 @@ export function AdminPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
-    setSuccess('');
 
     if (role === 'DOCTOR' && !passwordValidation.valid) {
-      setError('La contraseña no cumple los requisitos');
+      showDialog('Error', 'La contraseña no cumple los requisitos');
       setLoading(false);
       return;
     }
 
     try {
       await apiService.createDoctor(formData);
-      setSuccess(`${role === 'DOCTOR' ? 'Médico' : 'Administrador'} creado exitosamente`);
+      showDialog('Éxito', `${role === 'DOCTOR' ? 'Médico' : 'Administrador'} creado exitosamente`);
       setFormData({ name: '', specialty: '', licenseNumber: '', phone: '', email: '', password: '' });
       setShowForm(false);
       loadDoctors();
     } catch (err: unknown) {
       const axiosError = err as { response?: { data?: { error?: { message?: string } } } };
-      setError(axiosError.response?.data?.error?.message || 'Error al crear usuario');
+      showDialog('Error', axiosError.response?.data?.error?.message || 'Error al crear usuario');
     } finally {
       setLoading(false);
     }
@@ -121,8 +120,6 @@ export function AdminPage() {
                 <option value="ADMIN">Administrador</option>
               </select>
             </div>
-            {success && <p className="success-message">{success}</p>}
-            {error && <p className="error-message">{error}</p>}
             <form onSubmit={handleSubmit} className="doctor-form">
               {role === 'DOCTOR' && (
                 <>
