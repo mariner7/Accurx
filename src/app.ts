@@ -15,7 +15,7 @@ export function createApp(): Express {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
   });
 
-  app.use('/', apiRoutes);
+  app.use('/api/v1', apiRoutes);
 
   setupSwagger(app);
 

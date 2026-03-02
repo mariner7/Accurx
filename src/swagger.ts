@@ -12,8 +12,8 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: 'http://localhost:3000',
-        description: 'Development server'
+        url: 'http://localhost:3000/api/v1',
+        description: 'Development server v1'
       }
     ],
     components: {
@@ -210,9 +210,9 @@ const swaggerOptions = {
 
 export function setupSwagger(app: Express): void {
   const swaggerSpec = swaggerJsdoc(swaggerOptions);
-  
+
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-  
+
   app.get('/api-docs.json', (_req, res) => {
     res.json(swaggerSpec);
   });
