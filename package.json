@@ -14,7 +14,8 @@
     "db:up": "docker-compose up -d",
     "db:down": "docker-compose down",
     "db:reset": "docker-compose down -v && docker-compose up -d",
-    "dev:all": "npm run db:up && npm run dev"
+    "dev:all": "npm run db:up && npm run dev",
+    "db:migrate": "node --import tsx ./node_modules/node-pg-migrate/bin/node-pg-migrate"
   },
   "keywords": [
     "medical",
@@ -50,6 +51,7 @@
     "@typescript-eslint/parser": "^8.56.1",
     "eslint": "^10.0.2",
     "eslint-config-prettier": "^10.1.8",
+    "node-pg-migrate": "^8.0.0",
     "prettier": "^3.8.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",

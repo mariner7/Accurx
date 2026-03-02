@@ -1,6 +1,8 @@
 # AccuRx - Sistema de Citas Médicas
 
-> **MVP** - Producto Mínimo Viable con fines educativos y de evaluación.
+> **MVP** - Producto Mínimo Viable API de gestión de cita médica con frontend integrado.
+
+Este producto es un API que busa cetralizar y digitalizar todo el proceso del cuidado médico desde la agenda de una cita médica, hasta el diagnóstico, tratamiento y seguimiento del paciente.
 
 ## Quick Start
 
@@ -12,13 +14,16 @@ npm install
 cp .env.example .env
 
 # 3. Levantar PostgreSQL
-npm run db:up
+npm run db:up 
 
-# 4. Iniciar servidor
+# 4. Correr migraciones para crear las tablas
+npm run db:migrate:up
+
+# 5. Iniciar servidor
 npm run dev
 
-# 5. Iniciar Vite
-cd frontend
+# 6. Iniciar Vite (en otra terminal)
+cd frontend 
 npm run dev
 ```
 
@@ -57,6 +62,23 @@ Se crea automáticamente al iniciar. Credenciales por defecto:
 - Email: `admin@accurx.com`
 - Password: `admin123`
 
+## Migraciones de Base de Datos
+
+Este proyecto utiliza `node-pg-migrate` para gestionar el esquema de la base de datos. Las migraciones se encuentran en la carpeta `migrations/`.
+
+- **Crear una nueva migración**:
+  ```bash
+  npm run db:migrate -- create --name nombre-descriptivo-de-la-migracion
+  ```
+- **Aplicar todas las migraciones pendientes**:
+  ```bash
+  npm run db:migrate:up
+  ```
+- **Revertir la última migración aplicada**:
+  ```bash
+  npm run db:migrate:down
+  ```
+
 ## Uso
 
 ### 1. Login (obtener token)
@@ -93,9 +115,11 @@ curl -X POST http://localhost:3000/auth/login \
 | `npm run dev` | Desarrollo |
 | `npm run build` | Compilar |
 | `npm run start` | Producción |
-| `npm run test` | Pruebas |
 | `npm run db:up` | Iniciar BD |
 | `npm run db:down` | Detener BD |
+| `npm run db:migrate:create -- --name <nombre>` | Crear una nueva migración |
+| `npm run db:migrate:up` | Aplicar migraciones pendientes |
+| `npm run db:migrate:down` | Revertir la última migración |
 | `npm run lint` | Linter |
 
 ### Vite
