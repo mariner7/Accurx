@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+dist
+frontend
+.git
+.env
+.env.*
+tests
+coverage
+README.md
+docs
+docker-compose.yml
