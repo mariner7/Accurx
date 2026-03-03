@@ -1,0 +1,39 @@
+# GIT
+.gitmodules
+
+# IDE
+.idea/ 
+.vscode/
+# OS
+.DS_Store
+Thumbs.db
+# Node_modules
+node_modules/
+# Build output
+build/
+# Logs
+logs/
+*.log
+# Environment variables
+.env
+# Coverage reports
+coverage/
+# Temporary files
+tmp/
+# Package-lock
+package-lock.json
+# Yarn lock
+yarn.lock
+# Test
+*.test.ts
+*.spec.ts
+# TypeScript
+*.tsbuildinfo
+# Miscellaneous
+*.bak
+*.swp
+scripts/
+docs/
+!accurx-api-postman-collection.json
+!POSTMAN:README.md
+GEMINI.md

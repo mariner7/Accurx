@@ -1,0 +1,1 @@
+{"version":3,"file":"TimeSlot.d.ts","sourceRoot":"","sources":["../../../src/domain/value-objects/TimeSlot.ts"],"names":[],"mappings":"AAKA,qBAAa,QAAQ;IACnB,SAAgB,SAAS,EAAE,IAAI,CAAC;IAChC,SAAgB,OAAO,EAAE,IAAI,CAAC;gBAElB,SAAS,EAAE,IAAI,EAAE,OAAO,EAAE,IAAI;IAM1C,OAAO,CAAC,QAAQ;IAkBhB,QAAQ,CAAC,KAAK,EAAE,QAAQ,GAAG,OAAO;IAIlC,MAAM,CAAC,KAAK,EAAE,QAAQ,GAAG,OAAO;CAMjC"}
