@@ -128,6 +128,14 @@ cd frontend
 |---------|-------------|
 | `npm run dev` | Desarrollo |
 
+## Despliegue en Render
+URL: https://accurx.onrender.com
+
+Lo primero que debes hacer es registrarte como paciente.
+
+## Presentación del proyecto
+http://bit.ly/46H2ueW
+
 ## Roles
 
 - **ADMIN**: Crear médicos, ver todo
