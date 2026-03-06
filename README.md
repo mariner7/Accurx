@@ -117,12 +117,18 @@ curl -X POST http://localhost:3000/auth/login \
 | `npm run start` | Producción |
 | `npm run db:up` | Iniciar BD |
 | `npm run db:down` | Detener BD |
+| `npm run dev:all` | Iniciar BD y backend |
 | `npm run db:migrate:create -- --name <nombre>` | Crear una nueva migración |
 | `npm run db:migrate:up` | Aplicar migraciones pendientes |
 | `npm run db:migrate:down` | Revertir la última migración |
 | `npm run lint` | Linter |
 
 ### Vite
+Crear el archivo .env en la carpeta frontend a partir del archivo .env.example
+```bash
+cd frontend
+cp .env.example .env
+``` 
 cd frontend
 | Comando | Descripción |
 |---------|-------------|
