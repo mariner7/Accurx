@@ -17,29 +17,6 @@ services:
       retries: 5
       start_period: 10s
 
-  api:
-    image: accurx:1.0.0
-    container_name: accurx_api
-    environment:
-      - PORT=${APP_PORT:-3000}
-      - APP_PORT=${APP_PORT:-3000}
-      - DB_HOST=postgres
-      - DB_PORT=${DB_PORT}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_NAME=${DB_NAME}
-      - NODE_ENV=development
-      - DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@postgres:${DB_PORT}/${DB_NAME}
-      - JWT_SECRET=${JWT_SECRET:-secret}
-      - JWT_EXPIRES_IN=${JWT_EXPIRES_IN:-24h}
-      - ADMIN_EMAIL=${ADMIN_EMAIL}
-      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-    ports:
-      - "${APP_PORT:-3000}:${APP_PORT:-3000}"
-    depends_on:
-      postgres:
-        condition: service_healthy
-
 volumes:
   postgres_data:
     driver: local

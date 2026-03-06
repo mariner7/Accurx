@@ -14,6 +14,7 @@
     "db:up": "docker-compose up -d",
     "db:down": "docker-compose down",
     "db:reset": "docker-compose down -v && docker-compose up -d",
+    "docker:all": "docker-compose up --build -d",
     "dev:all": "npm run db:up && npm run dev",
     "db:migrate": "node --import tsx ./node_modules/node-pg-migrate/bin/node-pg-migrate"
   },
