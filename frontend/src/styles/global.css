@@ -782,7 +782,7 @@ tbody tr:hover {
   position: fixed;
   top: 72px;
   right: 0;
-  width: 280px;
+  width: 360px;
   max-width: 80vw;
   height: calc(100vh - 72px);
   background: var(--bg-primary);
