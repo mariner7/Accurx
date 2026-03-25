@@ -30,6 +30,15 @@
 
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
+
+  /* Hamburger Menu */
+  --hamburger-menu-width: 24px;
+  --hamburger-menu-height: 18px;
+  --hamburger-menu-line-height: 2px;
+  --hamburger-menu-line-border-radius: 2px;
+  --transition-transform: transform 0.75s, opacity 0.2s;
+  /* Cálculo para centrar las líneas exactamente */
+  --translate-y: calc((var(--hamburger-menu-height) / 2) - (var(--hamburger-menu-line-height) / 2));
 }
 
 /* Dark Theme */
@@ -729,34 +738,42 @@ tbody tr:hover {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 24px;
-  height: 18px;
+  width: var(--hamburger-menu-width);
+  height: var(--hamburger-menu-height);
   cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   background: none;
   border: none;
   padding: 0;
   z-index: 1000;
 }
 
+.hamburger-menu.open {
+  transform: rotate(180deg);
+}
+
 .hamburger-menu span {
   display: block;
   width: 100%;
-  height: 2px;
+  height: var(--hamburger-menu-line-height);
   background-color: var(--text-primary);
-  border-radius: 2px;
-  transition: all var(--transition-normal);
+  border-radius: var(--hamburger-menu-line-border-radius);
+  transition: var(--transition-transform);
+  transform-origin: center;
+  /*transition: all var(--transition-slow);*/
 }
 
 .hamburger-menu.open span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg);
+  transform: translateY(var(--translate-y)) rotate(45deg);
 }
 
 .hamburger-menu.open span:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0);
 }
 
 .hamburger-menu.open span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg);
+  transform: translateY(calc(-1 * var(--translate-y))) rotate(-45deg);
 }
 
 /* Mobile Menu */
