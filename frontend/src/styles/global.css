@@ -10,24 +10,24 @@
   --color-gray-500: #757575;
   --color-gray-700: #424242;
   --color-gray-900: #212121;
-  
+
   --bg-primary: var(--color-white);
   --bg-secondary: var(--color-gray-100);
   --text-primary: var(--color-gray-900);
   --text-secondary: var(--color-gray-500);
   --border-color: var(--color-gray-200);
-  
+
   --font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Arial', sans-serif;
-  
+
   --border-radius-sm: 4px;
   --border-radius-md: 8px;
   --border-radius-lg: 12px;
   --border-radius-xl: 16px;
-  
+
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
-  
+
   --transition-fast: 150ms ease;
   --transition-normal: 250ms ease;
 }
@@ -40,13 +40,13 @@
   --color-gray-500: #a0a0a0;
   --color-gray-700: #e0e0e0;
   --color-gray-900: #f5f5f5;
-  
+
   --bg-primary: #1a1a1a;
   --bg-secondary: #262626;
   --text-primary: #f5f5f5;
   --text-secondary: #a0a0a0;
   --border-color: #404040;
-  
+
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
@@ -71,14 +71,27 @@ body {
   color: var(--text-primary);
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-weight: 600;
   line-height: 1.2;
 }
 
-h1 { font-size: 2rem; }
-h2 { font-size: 1.5rem; }
-h3 { font-size: 1.25rem; }
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
 
 a {
   color: var(--color-primary);
@@ -98,7 +111,9 @@ button {
   transition: all var(--transition-fast);
 }
 
-input, select, textarea {
+input,
+select,
+textarea {
   font-family: inherit;
   border: 1px solid var(--color-gray-300);
   border-radius: var(--border-radius-md);
@@ -107,7 +122,9 @@ input, select, textarea {
   transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
-input:focus, select:focus, textarea:focus {
+input:focus,
+select:focus,
+textarea:focus {
   outline: none;
   border-color: var(--color-primary);
   box-shadow: 0 0 0 3px rgba(225, 6, 0, 0.1);
@@ -197,7 +214,8 @@ thead {
   color: var(--color-white);
 }
 
-th, td {
+th,
+td {
   padding: 12px 16px;
   text-align: left;
 }
@@ -430,14 +448,15 @@ tbody tr:hover {
   .hamburger-menu {
     display: none;
   }
-  
+
   .mobile-menu {
     display: none !important;
   }
 }
 
 /* Cards */
-.card, .mini-card {
+.card,
+.mini-card {
   background-color: var(--bg-primary);
   color: var(--text-primary);
 }
@@ -729,7 +748,7 @@ tbody tr:hover {
 }
 
 .hamburger-menu.open span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: translateY(8px) rotate(45deg);
 }
 
 .hamburger-menu.open span:nth-child(2) {
@@ -737,7 +756,7 @@ tbody tr:hover {
 }
 
 .hamburger-menu.open span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+  transform: translateY(-8px) rotate(-45deg);
 }
 
 /* Mobile Menu */
